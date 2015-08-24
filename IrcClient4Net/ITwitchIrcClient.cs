@@ -1,6 +1,6 @@
 ﻿namespace SexyFishHorse.Irc.Client
 {
-    public interface IIrcClient
+    public interface ITwitchIrcClient
     {
         void Connect();
     }

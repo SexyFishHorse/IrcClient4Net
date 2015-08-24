@@ -9,7 +9,7 @@
         {
             var kernel = new StandardKernel(new IrcClientModule());
 
-            var client = kernel.Get<IIrcClient>();
+            var client = kernel.Get<ITwitchIrcClient>();
 
             client.Connect();
         }

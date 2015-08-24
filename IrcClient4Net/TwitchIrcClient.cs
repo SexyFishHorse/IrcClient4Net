@@ -3,11 +3,11 @@
     using System;
     using SexyFishHorse.Irc.Client.Configuration;
 
-    public class IrcClient : IIrcClient
+    public class TwitchIrcClient : ITwitchIrcClient
     {
         private readonly IConfiguration configuration;
 
-        public IrcClient(IConfiguration configuration)
+        public TwitchIrcClient(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
