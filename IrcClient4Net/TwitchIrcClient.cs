@@ -30,5 +30,11 @@
             outputStream.WriteLine("USER " + configuration.TwitchIrcNickname + " 8 * : " + configuration.TwitchIrcNickname);
             outputStream.Flush();
         }
+
+        public void JoinRoom()
+        {
+            outputStream.WriteLine("JOIN #" + configuration.TwitchIrcNickname);
+            outputStream.Flush();
+        }
     }
 }

@@ -3,5 +3,7 @@
     public interface ITwitchIrcClient
     {
         void Connect();
+
+        void JoinRoom();
     }
 }
