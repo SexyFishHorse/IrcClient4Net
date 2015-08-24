@@ -33,8 +33,7 @@
 
         public void JoinRoom()
         {
-            outputStream.WriteLine("JOIN #" + configuration.TwitchIrcNickname);
-            outputStream.Flush();
+            SendIrcMessage(string.Format("JOIN #{0}", configuration.TwitchIrcNickname));
         }
 
         public void SendIrcMessage(string message)
