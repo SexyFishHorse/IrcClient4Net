@@ -1,5 +1,6 @@
 ﻿namespace SexyFishHorse.Irc.Client
 {
+    using System;
     using System.IO;
     using System.Net.Sockets;
     using SexyFishHorse.Irc.Client.Configuration;
@@ -38,6 +39,7 @@
 
         public void SendIrcMessage(string message)
         {
+            Console.WriteLine("<SENT> " + message);
             outputStream.WriteLine(message);
             outputStream.Flush();
         }
