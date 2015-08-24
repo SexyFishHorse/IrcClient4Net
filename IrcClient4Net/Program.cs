@@ -32,6 +32,7 @@
             var thread = new Thread(ReadChatMessages);
             thread.Start();
 
+            client.RequestMembershipCapability();
             client.JoinRoom();
             client.SendChatMessage("Test");
 

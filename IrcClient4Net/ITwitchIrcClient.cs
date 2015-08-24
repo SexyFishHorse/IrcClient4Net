@@ -13,5 +13,7 @@
         string ReadRawMessage();
 
         void LeaveRoom();
+
+        void RequestMembershipCapability();
     }
 }

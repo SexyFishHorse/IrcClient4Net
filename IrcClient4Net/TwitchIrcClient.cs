@@ -58,5 +58,10 @@
         {
             SendIrcMessage(string.Format("PART #{0}", configuration.TwitchIrcNickname));
         }
+
+        public void RequestMembershipCapability()
+        {
+            SendIrcMessage(string.Format("CAP REQ :{0}", configuration.TwitchIrcMembershipCapability));
+        }
     }
 }
