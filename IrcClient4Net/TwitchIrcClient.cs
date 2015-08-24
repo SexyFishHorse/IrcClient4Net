@@ -49,7 +49,7 @@
                 string.Format(configuration.TwitchIrcPrivmsgFormat, configuration.TwitchIrcNickname, message));
         }
 
-        public string ReadMessage()
+        public string ReadRawMessage()
         {
             return inputStream.ReadLine();
         }

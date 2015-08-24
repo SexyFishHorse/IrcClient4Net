@@ -10,6 +10,6 @@
 
         void SendChatMessage(string message);
 
-        string ReadMessage();
+        string ReadRawMessage();
     }
 }

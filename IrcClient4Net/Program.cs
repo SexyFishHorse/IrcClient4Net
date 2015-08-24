@@ -48,7 +48,8 @@
         {
             while (Running)
             {
-                Console.WriteLine("<<< " + client.ReadMessage());
+                var rawMessage = client.ReadRawMessage();
+                    Console.WriteLine("<RAW MESSAGE> {0}", rawMessage);
             }
         }
     }
