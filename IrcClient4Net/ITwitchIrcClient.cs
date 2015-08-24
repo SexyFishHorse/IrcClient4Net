@@ -10,6 +10,10 @@
 
         void SendChatMessage(string message);
 
-        string ReadMessage();
+        string ReadRawMessage();
+
+        void LeaveRoom();
+
+        void RequestMembershipCapability();
     }
 }

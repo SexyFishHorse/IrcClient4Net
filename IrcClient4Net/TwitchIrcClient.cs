@@ -1,5 +1,6 @@
 ﻿namespace SexyFishHorse.Irc.Client
 {
+    using System;
     using System.IO;
     using System.Net.Sockets;
     using SexyFishHorse.Irc.Client.Configuration;
@@ -25,20 +26,20 @@
             inputStream = new StreamReader(client.GetStream());
             outputStream = new StreamWriter(client.GetStream());
 
-            outputStream.WriteLine("PASS " + configuration.TwitchIrcPassword);
-            outputStream.WriteLine("NICK " + configuration.TwitchIrcNickname);
-            outputStream.WriteLine("USER " + configuration.TwitchIrcNickname + " 8 * : " + configuration.TwitchIrcNickname);
+            outputStream.WriteLine("PASS {0}", configuration.TwitchIrcPassword);
+            outputStream.WriteLine("NICK {0}", configuration.TwitchIrcNickname);
+            outputStream.WriteLine("USER {0} 8 * : {0}", configuration.TwitchIrcNickname);
             outputStream.Flush();
         }
 
         public void JoinRoom()
         {
-            outputStream.WriteLine("JOIN #" + configuration.TwitchIrcNickname);
-            outputStream.Flush();
+            SendIrcMessage(string.Format("JOIN #{0}", configuration.TwitchIrcNickname));
         }
 
         public void SendIrcMessage(string message)
         {
+            Console.WriteLine("<SENT> " + message);
             outputStream.WriteLine(message);
             outputStream.Flush();
         }
@@ -49,9 +50,19 @@
                 string.Format(configuration.TwitchIrcPrivmsgFormat, configuration.TwitchIrcNickname, message));
         }
 
-        public string ReadMessage()
+        public string ReadRawMessage()
         {
             return inputStream.ReadLine();
+        }
+
+        public void LeaveRoom()
+        {
+            SendIrcMessage(string.Format("PART #{0}", configuration.TwitchIrcNickname));
+        }
+
+        public void RequestMembershipCapability()
+        {
+            SendIrcMessage(string.Format("CAP REQ :{0}", configuration.TwitchIrcMembershipCapability));
         }
     }
 }

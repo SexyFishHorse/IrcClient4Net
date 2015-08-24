@@ -43,5 +43,13 @@
                 return ConfigurationManager.AppSettings["irc.twitch.privmsgFormat"];
             }
         }
+
+        public string TwitchIrcMembershipCapability
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["irc.twitch.capabilities.membership"];
+            }
+        }
     }
 }
