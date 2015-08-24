@@ -9,5 +9,7 @@
         void SendIrcMessage(string message);
 
         void SendChatMessage(string message);
+
+        string ReadMessage();
     }
 }

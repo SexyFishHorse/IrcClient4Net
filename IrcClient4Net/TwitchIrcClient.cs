@@ -48,5 +48,10 @@
             SendIrcMessage(
                 string.Format(configuration.TwitchIrcPrivmsgFormat, configuration.TwitchIrcNickname, message));
         }
+
+        public string ReadMessage()
+        {
+            return inputStream.ReadLine();
+        }
     }
 }
