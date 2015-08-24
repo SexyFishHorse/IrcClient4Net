@@ -35,5 +35,13 @@
                 return ConfigurationManager.AppSettings["irc.twitch.password"];
             }
         }
+
+        public string TwitchIrcPrivmsgFormat
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["irc.twitch.privmsgFormat"];
+            }
+        }
     }
 }

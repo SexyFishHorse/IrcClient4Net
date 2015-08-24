@@ -36,5 +36,17 @@
             outputStream.WriteLine("JOIN #" + configuration.TwitchIrcNickname);
             outputStream.Flush();
         }
+
+        public void SendIrcMessage(string message)
+        {
+            outputStream.WriteLine(message);
+            outputStream.Flush();
+        }
+
+        public void SendChatMessage(string message)
+        {
+            SendIrcMessage(
+                string.Format(configuration.TwitchIrcPrivmsgFormat, configuration.TwitchIrcNickname, message));
+        }
     }
 }

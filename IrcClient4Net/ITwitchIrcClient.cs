@@ -5,5 +5,9 @@
         void Connect();
 
         void JoinRoom();
+
+        void SendIrcMessage(string message);
+
+        void SendChatMessage(string message);
     }
 }

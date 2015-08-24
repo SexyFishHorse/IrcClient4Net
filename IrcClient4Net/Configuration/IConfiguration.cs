@@ -9,5 +9,7 @@
         string TwitchIrcNickname { get; }
 
         string TwitchIrcPassword { get; }
+
+        string TwitchIrcPrivmsgFormat { get; }
     }
 }
