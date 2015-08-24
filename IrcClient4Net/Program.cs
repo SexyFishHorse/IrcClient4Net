@@ -4,6 +4,9 @@
     {
         public static void Main(string[] args)
         {
+            var client = new IrcClient();
+
+            client.Connect();
         }
     }
 }
