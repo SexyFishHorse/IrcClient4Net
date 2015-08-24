@@ -11,5 +11,7 @@
         void SendChatMessage(string message);
 
         string ReadRawMessage();
+
+        void LeaveRoom();
     }
 }

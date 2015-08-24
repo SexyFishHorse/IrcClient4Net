@@ -53,5 +53,10 @@
         {
             return inputStream.ReadLine();
         }
+
+        public void LeaveRoom()
+        {
+            SendIrcMessage(string.Format("PART #{0}", configuration.TwitchIrcNickname));
+        }
     }
 }
