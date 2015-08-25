@@ -2,9 +2,12 @@
 {
     using System.IO;
     using System.Net.Sockets;
+    using SexyFishHorse.Irc.Client.Models;
+    using SexyFishHorse.Irc.Client.Parsers;
+
     public class IrcClient : IIrcClient
     {
-        private readonly IrcMessageParser parser;
+        private readonly IIrcMessageParser parser;
 
         private TcpClient client;
 
@@ -12,7 +15,7 @@
 
         private StreamWriter outputStream;
 
-        public IrcClient(IrcMessageParser parser)
+        public IrcClient(IIrcMessageParser parser)
         {
             this.parser = parser;
         }
@@ -39,6 +42,10 @@
         {
             return inputStream.ReadLine();
         }
+
+        public IrcMessage ReadIrcMessage()
+        {
+            return parser.ParseMessage(ReadRawMessage());
         }
     }
 }
