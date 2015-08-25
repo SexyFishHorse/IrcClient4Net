@@ -48,13 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients\IIrcClient.cs">
+      <DependentUpon>IrcClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clients\IrcClient.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\IrcClientModule.cs" />
-    <Compile Include="ITwitchIrcClient.cs" />
-    <Compile Include="TwitchIrcClient.cs" />
+    <Compile Include="Clients\ITwitchIrcClient.cs">
+      <DependentUpon>TwitchIrcClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clients\TwitchIrcClient.cs" />
+    <Compile Include="IrcCommandsFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

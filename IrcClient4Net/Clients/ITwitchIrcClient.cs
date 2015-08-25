@@ -1,4 +1,4 @@
-﻿namespace SexyFishHorse.Irc.Client
+﻿namespace SexyFishHorse.Irc.Client.Clients
 {
     public interface ITwitchIrcClient
     {
