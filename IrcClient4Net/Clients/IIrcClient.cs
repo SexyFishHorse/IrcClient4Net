@@ -9,5 +9,7 @@
         void SendRawMessage(string message);
 
         string ReadRawMessage();
+
+        IrcMessage ReadIrcMessage();
     }
 }
