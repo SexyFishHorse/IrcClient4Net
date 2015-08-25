@@ -60,11 +60,13 @@
 
             while (Running)
             {
-                var rawMessage = client.ReadRawMessage();
-                if (string.IsNullOrWhiteSpace(rawMessage))
+                var ircMessage = client.ReadIrcMessage();
+                if (ircMessage == null)
                 {
                     continue;
                 }
+
+                var rawMessage = ircMessage.Raw;
 
                 if (rawMessage.Contains(string.Format(" PRIVMSG {0}", channelName)))
                 {

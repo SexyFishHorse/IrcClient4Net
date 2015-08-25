@@ -2,6 +2,7 @@
 {
     using System;
     using SexyFishHorse.Irc.Client.Configuration;
+    using SexyFishHorse.Irc.Client.Models;
 
     public class TwitchIrcClient : ITwitchIrcClient
     {
@@ -60,6 +61,11 @@
         public void RequestMembershipCapability()
         {
             SendIrcMessage(IrcCommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
+        }
+
+        public IrcMessage ReadIrcMessage()
+        {
+            return client.ReadIrcMessage();
         }
     }
 }
