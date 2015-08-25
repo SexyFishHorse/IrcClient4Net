@@ -28,11 +28,11 @@
             }
         }
 
-        public string TwitchIrcPassword
+        public string TwitchIrcTmiToken
         {
             get
             {
-                return ConfigurationManager.AppSettings["irc.twitch.password"];
+                return ConfigurationManager.AppSettings["irc.twitch.tmiToken"];
             }
         }
 
