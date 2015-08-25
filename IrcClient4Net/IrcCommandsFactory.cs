@@ -1,6 +1,6 @@
 ﻿namespace SexyFishHorse.Irc.Client
 {
-    public static class IrcCommands
+    public static class IrcCommandsFactory
     {
         public static string Pass(string password)
         {

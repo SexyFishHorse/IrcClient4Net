@@ -1,53 +1,46 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
     using System;
-    using System.IO;
-    using System.Net.Sockets;
     using SexyFishHorse.Irc.Client.Configuration;
 
     public class TwitchIrcClient : ITwitchIrcClient
     {
         private readonly IConfiguration configuration;
 
-        private TcpClient client;
+        private readonly IIrcClient client;
 
-        private StreamReader inputStream;
-
-        private StreamWriter outputStream;
-
-        public TwitchIrcClient(IConfiguration configuration)
+        public TwitchIrcClient(IConfiguration configuration, IIrcClient client)
         {
             this.configuration = configuration;
+            this.client = client;
         }
 
         public void Connect()
         {
-            client = new TcpClient(configuration.TwitchIrcServerName, configuration.TwitchIrcPortNumber);
-            inputStream = new StreamReader(client.GetStream());
-            outputStream = new StreamWriter(client.GetStream());
-
-            outputStream.WriteLine(IrcCommands.Pass(configuration.TwitchIrcPassword));
-            outputStream.WriteLine(IrcCommands.Nick(configuration.TwitchIrcNickname));
-            outputStream.WriteLine(IrcCommands.User(configuration.TwitchIrcNickname, configuration.TwitchIrcNickname));
-            outputStream.Flush();
+            client.Connect(
+                configuration.TwitchIrcServerName,
+                configuration.TwitchIrcPortNumber,
+                configuration.TwitchIrcNickname,
+                configuration.TwitchIrcNickname,
+                configuration.TwitchIrcNickname,
+                configuration.TwitchIrcPassword);
         }
 
         public void JoinRoom()
         {
-            SendIrcMessage(IrcCommands.Join(configuration.TwitchIrcNickname));
+            SendIrcMessage(IrcCommandsFactory.Join(configuration.TwitchIrcNickname));
         }
 
         public void SendIrcMessage(string message)
         {
             Console.WriteLine("<SENT> " + message);
-            outputStream.WriteLine(message);
-            outputStream.Flush();
+            client.SendRawMessage(message);
         }
 
         public void SendChatMessage(string message)
         {
             SendIrcMessage(
-                IrcCommands.PrivMsg(
+                IrcCommandsFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
                     configuration.TwitchIrcNickname,
@@ -56,17 +49,17 @@
 
         public string ReadRawMessage()
         {
-            return inputStream.ReadLine();
+            return client.ReadRawMessage();
         }
 
         public void LeaveRoom()
         {
-            SendIrcMessage(IrcCommands.Part(configuration.TwitchIrcNickname));
+            SendIrcMessage(IrcCommandsFactory.Part(configuration.TwitchIrcNickname));
         }
 
         public void RequestMembershipCapability()
         {
-            SendIrcMessage(IrcCommands.CapReq(configuration.TwitchIrcMembershipCapability));
+            SendIrcMessage(IrcCommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
         }
     }
 }
