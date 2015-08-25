@@ -48,6 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients\IIrcClient.cs">
+      <DependentUpon>IrcClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clients\IrcClient.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
