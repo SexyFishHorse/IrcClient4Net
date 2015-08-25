@@ -57,6 +57,7 @@
       <DependentUpon>TwitchIrcClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Clients\TwitchIrcClient.cs" />
+    <Compile Include="IrcCommands.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

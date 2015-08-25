@@ -26,15 +26,15 @@
             inputStream = new StreamReader(client.GetStream());
             outputStream = new StreamWriter(client.GetStream());
 
-            outputStream.WriteLine("PASS {0}", configuration.TwitchIrcPassword);
-            outputStream.WriteLine("NICK {0}", configuration.TwitchIrcNickname);
-            outputStream.WriteLine("USER {0} 8 * : {0}", configuration.TwitchIrcNickname);
+            outputStream.WriteLine(IrcCommands.Pass(configuration.TwitchIrcPassword));
+            outputStream.WriteLine(IrcCommands.Nick(configuration.TwitchIrcNickname));
+            outputStream.WriteLine(IrcCommands.User(configuration.TwitchIrcNickname, configuration.TwitchIrcNickname));
             outputStream.Flush();
         }
 
         public void JoinRoom()
         {
-            SendIrcMessage(string.Format("JOIN #{0}", configuration.TwitchIrcNickname));
+            SendIrcMessage(IrcCommands.Join(configuration.TwitchIrcNickname));
         }
 
         public void SendIrcMessage(string message)
@@ -47,7 +47,11 @@
         public void SendChatMessage(string message)
         {
             SendIrcMessage(
-                string.Format(configuration.TwitchIrcPrivmsgFormat, configuration.TwitchIrcNickname, message));
+                IrcCommands.PrivMsg(
+                    configuration.TwitchIrcNickname,
+                    string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
+                    configuration.TwitchIrcNickname,
+                    message));
         }
 
         public string ReadRawMessage()
@@ -57,12 +61,12 @@
 
         public void LeaveRoom()
         {
-            SendIrcMessage(string.Format("PART #{0}", configuration.TwitchIrcNickname));
+            SendIrcMessage(IrcCommands.Part(configuration.TwitchIrcNickname));
         }
 
         public void RequestMembershipCapability()
         {
-            SendIrcMessage(string.Format("CAP REQ :{0}", configuration.TwitchIrcMembershipCapability));
+            SendIrcMessage(IrcCommands.CapReq(configuration.TwitchIrcMembershipCapability));
         }
     }
 }
