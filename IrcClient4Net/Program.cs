@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using Ninject;
+    using SexyFishHorse.Irc.Client.Clients;
     using SexyFishHorse.Irc.Client.Configuration;
 
     public class Program
