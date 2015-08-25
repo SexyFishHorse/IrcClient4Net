@@ -10,8 +10,6 @@
 
         string TwitchIrcPassword { get; }
 
-        string TwitchIrcPrivmsgFormat { get; }
-
         string TwitchIrcMembershipCapability { get; }
     }
 }
