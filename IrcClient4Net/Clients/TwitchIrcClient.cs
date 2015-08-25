@@ -24,7 +24,7 @@
                 configuration.TwitchIrcNickname,
                 configuration.TwitchIrcNickname,
                 configuration.TwitchIrcNickname,
-                configuration.TwitchIrcPassword);
+                configuration.TwitchIrcTmiToken);
         }
 
         public void JoinRoom()

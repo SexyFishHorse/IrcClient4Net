@@ -8,7 +8,7 @@
 
         string TwitchIrcNickname { get; }
 
-        string TwitchIrcPassword { get; }
+        string TwitchIrcTmiToken { get; }
 
         string TwitchIrcMembershipCapability { get; }
     }
