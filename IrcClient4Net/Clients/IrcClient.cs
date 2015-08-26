@@ -1,13 +1,17 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
+    using System;
     using System.IO;
     using System.Net.Sockets;
     using SexyFishHorse.Irc.Client.Models;
     using SexyFishHorse.Irc.Client.Parsers;
+    using SexyFishHorse.Irc.Client.Validators;
 
     public class IrcClient : IIrcClient
     {
         private readonly IIrcMessageParser parser;
+
+        private readonly IResponseValidator responseValidator;
 
         private TcpClient client;
 
@@ -15,13 +19,21 @@
 
         private StreamWriter outputStream;
 
-        public IrcClient(IIrcMessageParser parser)
+        private bool connecting;
+
+        public IrcClient(IIrcMessageParser parser, IResponseValidator responseValidator)
         {
             this.parser = parser;
+            this.responseValidator = responseValidator;
         }
+
+        public bool Connected { get; private set; }
 
         public void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
         {
+            connecting = false;
+            Connected = false;
+
             client = new TcpClient(serverName, portNumber);
             inputStream = new StreamReader(client.GetStream());
             outputStream = new StreamWriter(client.GetStream());
@@ -30,22 +42,56 @@
             outputStream.WriteLine(IrcCommandsFactory.Nick(nickname));
             outputStream.WriteLine(IrcCommandsFactory.User(username, realname));
             outputStream.Flush();
+
+            connecting = true;
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Welcome);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.YourHost);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
+            connecting = false;
+
+            Connected = true;
         }
 
         public void SendRawMessage(string message)
         {
+            if (!Connected)
+            {
+                throw new InvalidOperationException("Client is not connected.");
+            }
+
             outputStream.WriteLine(message);
             outputStream.Flush();
         }
 
         public string ReadRawMessage()
         {
+            if (!connecting && !Connected)
+            {
+                throw new InvalidOperationException("Client is not connected.");
+            }
+
             return inputStream.ReadLine();
         }
 
         public IrcMessage ReadIrcMessage()
         {
             return parser.ParseMessage(ReadRawMessage());
+        }
+
+        public void Disconnect(string message = null)
+        {
+            SendRawMessage(IrcCommandsFactory.Quit(message));
+            inputStream.Dispose();
+            outputStream.Dispose();
+            client.Close();
+
+            Connected = false;
+        }
+
+        public void Dispose()
+        {
+            Disconnect();
         }
     }
 }

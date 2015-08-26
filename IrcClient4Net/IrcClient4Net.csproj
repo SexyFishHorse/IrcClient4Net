@@ -63,12 +63,18 @@
     <Compile Include="Clients\TwitchIrcClient.cs" />
     <Compile Include="IrcCommandsFactory.cs" />
     <Compile Include="Models\IrcMessage.cs" />
+    <Compile Include="Models\ResponseValidationException.cs" />
     <Compile Include="Parsers\IIrcMessageParser.cs">
       <DependentUpon>IrcMessageParser.cs</DependentUpon>
     </Compile>
     <Compile Include="Parsers\IrcMessageParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rfc2812CommandResponse.cs" />
+    <Compile Include="Validators\IResponseValidator.cs">
+      <DependentUpon>ResponseValidator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Validators\ResponseValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

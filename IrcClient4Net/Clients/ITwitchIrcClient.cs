@@ -1,8 +1,6 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
-    using SexyFishHorse.Irc.Client.Models;
-
-    public interface ITwitchIrcClient
+    public interface ITwitchIrcClient : IIrcClient
     {
         void Connect();
 
@@ -12,12 +10,8 @@
 
         void SendChatMessage(string message);
 
-        string ReadRawMessage();
-
         void LeaveRoom();
 
         void RequestMembershipCapability();
-
-        IrcMessage ReadIrcMessage();
     }
 }

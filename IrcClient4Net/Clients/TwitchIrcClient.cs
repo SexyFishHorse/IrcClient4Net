@@ -48,6 +48,16 @@
                     message));
         }
 
+        public void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
+        {
+            client.Connect(serverName, portNumber, username, nickname, realname, password);
+        }
+
+        public void SendRawMessage(string message)
+        {
+            client.SendRawMessage(message);
+        }
+
         public string ReadRawMessage()
         {
             return client.ReadRawMessage();
@@ -66,6 +76,16 @@
         public IrcMessage ReadIrcMessage()
         {
             return client.ReadIrcMessage();
+        }
+
+        public void Disconnect(string message = null)
+        {
+            client.Disconnect(message);
+        }
+
+        public void Dispose()
+        {
+            client.Dispose();
         }
     }
 }
