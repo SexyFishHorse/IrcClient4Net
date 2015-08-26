@@ -1,10 +1,12 @@
 ﻿namespace SexyFishHorse.Irc.Client
 {
     using System;
+    using System.IO;
     using System.Threading;
     using Ninject;
     using SexyFishHorse.Irc.Client.Clients;
     using SexyFishHorse.Irc.Client.Configuration;
+    using SexyFishHorse.Irc.Client.Models;
 
     public class Program
     {
@@ -54,6 +56,7 @@
 
                 if (line == "exit")
                 {
+                    Running = false;
                     client.Dispose();
                 }
                 else
@@ -69,7 +72,17 @@
 
             while (Running)
             {
-                var ircMessage = client.ReadIrcMessage();
+                IrcMessage ircMessage;
+
+                try
+                {
+                    ircMessage = client.ReadIrcMessage();
+                }
+                catch (IOException)
+                {
+                    continue;
+                }
+
                 if (ircMessage == null)
                 {
                     continue;

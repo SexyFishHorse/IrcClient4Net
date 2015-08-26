@@ -9,6 +9,7 @@
         /// </summary>
         /// <param name="message">The message to validate</param>
         /// <param name="expectedCommand">The command the message is expected to have</param>
-        void ValidateCommand(IrcMessage message, string expectedCommand);
+        /// <returns>The <see cref="IrcMessage"/>.</returns>
+        IrcMessage ValidateCommand(IrcMessage message, string expectedCommand);
     }
 }

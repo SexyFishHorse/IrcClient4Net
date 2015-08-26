@@ -16,6 +16,14 @@
             this.client = client;
         }
 
+        public bool Connected
+        {
+            get
+            {
+                return client.Connected;
+            }
+        }
+
         public void Connect()
         {
             client.Connect(

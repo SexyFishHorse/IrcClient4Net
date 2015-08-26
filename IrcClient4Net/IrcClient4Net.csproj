@@ -64,10 +64,10 @@
     <Compile Include="IrcCommandsFactory.cs" />
     <Compile Include="Models\IrcMessage.cs" />
     <Compile Include="Models\ResponseValidationException.cs" />
-    <Compile Include="Parsers\IIrcMessageParser.cs">
-      <DependentUpon>IrcMessageParser.cs</DependentUpon>
+    <Compile Include="Parsers\IMessageParser.cs">
+      <DependentUpon>MessageParser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Parsers\IrcMessageParser.cs" />
+    <Compile Include="Parsers\MessageParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rfc2812CommandResponse.cs" />

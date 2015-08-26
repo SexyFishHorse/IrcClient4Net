@@ -5,6 +5,8 @@
 
     public interface IIrcClient : IDisposable
     {
+        bool Connected { get; }
+
         void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password);
 
         void SendRawMessage(string message);
