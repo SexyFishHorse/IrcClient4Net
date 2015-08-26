@@ -9,7 +9,7 @@
 
     public class IrcClient : IIrcClient
     {
-        private readonly IIrcMessageParser parser;
+        private readonly IMessageParser parser;
 
         private readonly IResponseValidator responseValidator;
 
@@ -21,7 +21,7 @@
 
         private bool connecting;
 
-        public IrcClient(IIrcMessageParser parser, IResponseValidator responseValidator)
+        public IrcClient(IMessageParser parser, IResponseValidator responseValidator)
         {
             this.parser = parser;
             this.responseValidator = responseValidator;

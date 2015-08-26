@@ -1,10 +1,9 @@
 ﻿namespace SexyFishHorse.Irc.Client.Parsers
 {
     using System;
-    using System.Linq;
     using SexyFishHorse.Irc.Client.Models;
 
-    public class IrcMessageParser : IIrcMessageParser
+    public class MessageParser : IMessageParser
     {
         public IrcMessage ParseMessage(string rawMessage)
         {

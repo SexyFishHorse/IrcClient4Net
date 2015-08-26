@@ -2,7 +2,7 @@
 {
     using SexyFishHorse.Irc.Client.Models;
 
-    public interface IIrcMessageParser
+    public interface IMessageParser
     {
         IrcMessage ParseMessage(string rawMessage);
     }
