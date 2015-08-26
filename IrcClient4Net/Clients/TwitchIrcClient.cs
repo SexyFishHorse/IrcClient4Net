@@ -67,5 +67,10 @@
         {
             return client.ReadIrcMessage();
         }
+
+        public void Dispose()
+        {
+            client.Dispose();
+        }
     }
 }

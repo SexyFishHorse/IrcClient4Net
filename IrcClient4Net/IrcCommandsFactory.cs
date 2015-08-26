@@ -36,5 +36,10 @@
         {
             return string.Format("CAP REQ :{0}", capability);
         }
+
+        public static string Quit(string message = null)
+        {
+            return string.IsNullOrWhiteSpace(message) ? "QUIT" : string.Format("QUIT :{0}", message);
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
+    using System;
     using SexyFishHorse.Irc.Client.Models;
 
-    public interface ITwitchIrcClient
+    public interface ITwitchIrcClient : IDisposable
     {
         void Connect();
 

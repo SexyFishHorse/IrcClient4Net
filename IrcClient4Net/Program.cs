@@ -50,7 +50,16 @@
 
             while (Running)
             {
-                client.SendChatMessage(Console.ReadLine());
+                var line = Console.ReadLine();
+
+                if (line == "exit")
+                {
+                    client.Dispose();
+                }
+                else
+                {
+                    client.SendChatMessage(line);
+                }
             }
         }
 
