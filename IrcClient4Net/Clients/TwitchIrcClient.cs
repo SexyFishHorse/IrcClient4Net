@@ -83,11 +83,6 @@
             client.Disconnect(message);
         }
 
-        public void ValidateCommand(IrcMessage message, string expectedCommand)
-        {
-            client.ValidateCommand(message, expectedCommand);
-        }
-
         public void Dispose()
         {
             client.Dispose();

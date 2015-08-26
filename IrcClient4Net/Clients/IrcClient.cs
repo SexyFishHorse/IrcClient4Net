@@ -5,10 +5,13 @@
     using System.Net.Sockets;
     using SexyFishHorse.Irc.Client.Models;
     using SexyFishHorse.Irc.Client.Parsers;
+    using SexyFishHorse.Irc.Client.Validators;
 
     public class IrcClient : IIrcClient
     {
         private readonly IIrcMessageParser parser;
+
+        private readonly IResponseValidator responseValidator;
 
         private TcpClient client;
 
@@ -18,9 +21,10 @@
 
         private bool connecting;
 
-        public IrcClient(IIrcMessageParser parser)
+        public IrcClient(IIrcMessageParser parser, IResponseValidator responseValidator)
         {
             this.parser = parser;
+            this.responseValidator = responseValidator;
         }
 
         public bool Connected { get; private set; }
@@ -40,10 +44,10 @@
             outputStream.Flush();
 
             connecting = true;
-            ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Welcome);
-            ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.YourHost);
-            ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
-            ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Welcome);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.YourHost);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
+            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
             connecting = false;
 
             Connected = true;
@@ -83,23 +87,6 @@
             client.Close();
 
             Connected = false;
-        }
-
-        public void ValidateCommand(IrcMessage message, string expectedCommand)
-        {
-            if (message == null)
-            {
-                throw new ApplicationException("Did not receive a response from the server.");
-            }
-
-            if (message.Command != expectedCommand)
-            {
-                throw new ApplicationException(
-                    string.Format(
-                        "Expected the message from the server to have command code \"{0}\", received \"{1}\" instead",
-                        expectedCommand,
-                        message.Command));
-            }
         }
 
         public void Dispose()
