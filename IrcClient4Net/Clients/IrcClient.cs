@@ -44,10 +44,18 @@
             outputStream.Flush();
 
             connecting = true;
-            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Welcome);
-            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.YourHost);
-            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
-            responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
+            try
+            {
+                responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Welcome);
+                responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.YourHost);
+                responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
+                responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
+            }
+            catch (ResponseValidationException ex)
+            {
+                throw new ApplicationException("Unable to establish a connection to the server");
+            }
+
             connecting = false;
 
             Connected = true;
