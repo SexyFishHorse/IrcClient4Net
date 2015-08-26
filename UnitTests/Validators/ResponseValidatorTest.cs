@@ -52,7 +52,7 @@
         }
 
         [Fact]
-        public void ValidateCommand_CommandAndMessageMatch_DoNothing()
+        public void ValidateCommand_CommandAndMessageMatch_ReturnMessage()
         {
             var fixture = new Fixture();
             var instance = new ResponseValidator();
@@ -62,7 +62,7 @@
 
             const string ExpectedCommand = "001";
 
-            instance.ValidateCommand(message, ExpectedCommand);
+            instance.ValidateCommand(message, ExpectedCommand).ShouldEqual(message);
         }
     }
 }

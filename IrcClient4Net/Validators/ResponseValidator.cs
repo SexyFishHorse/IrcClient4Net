@@ -5,7 +5,7 @@
 
     public class ResponseValidator : IResponseValidator
     {
-        public void ValidateCommand(IrcMessage message, string expectedCommand)
+        public IrcMessage ValidateCommand(IrcMessage message, string expectedCommand)
         {
             if (string.IsNullOrWhiteSpace(expectedCommand))
             {
@@ -19,7 +19,7 @@
 
             if (message.Command == expectedCommand)
             {
-                return;
+                return message;
             }
 
             var errorMessage =
