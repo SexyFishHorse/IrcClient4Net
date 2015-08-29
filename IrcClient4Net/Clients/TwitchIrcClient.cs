@@ -91,6 +91,26 @@
             client.Disconnect(message);
         }
 
+        public void Timeout(string username, int seconds)
+        {
+            client.SendRawMessage(
+                IrcCommandsFactory.PrivMsg(
+                    configuration.TwitchIrcNickname,
+                    string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
+                    configuration.TwitchIrcNickname,
+                    string.Format(".timeout {0} {1}", username, seconds)));
+        }
+
+        public void Ban(string username)
+        {
+            client.SendRawMessage(
+                IrcCommandsFactory.PrivMsg(
+                    configuration.TwitchIrcNickname,
+                    string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
+                    configuration.TwitchIrcNickname,
+                    string.Format(".timeout {0}", username)));
+        }
+
         public void Dispose()
         {
             client.Dispose();
