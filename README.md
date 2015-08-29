@@ -10,7 +10,7 @@ This library is specifically built for use with the Twitch and Hitbox live strea
 I will do my best to keep twitch and hitbox logic in their respective classes so you don't have to mess with that if you don't need it. I might even move it into its own repository eventually depending on how large that functionality or the basic framework evolves.
 
 # THIS PROJECT IS IN A VERY EARLY STAGE OF DEVELOPMENT
-The base ```IrcClient``` is very feature lacking at the moment. It does however already provide basic functionality to connect and interact with an IRC server and it can return the messages in either the raw format or in a parsed format (however I haven't gotten around to make a disconnect method yet. This is only a few hours old)
+The base ```IrcClient``` is very feature lacking at the moment. It does however already provide basic functionality to connect and interact with an IRC server and it can return the messages in either the raw format or in a parsed format.
 
 A few commands (```PASS```, ```USER```, ```NICK```, ```JOIN```, ```PART```, ```PRIVMSG``` and ```CAP REQ```) have been added to the ```IrcCommandFactory``` class for ease of use, but you may have to create your own raw messages for now until more commands are supported.
 
