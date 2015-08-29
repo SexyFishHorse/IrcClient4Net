@@ -13,5 +13,9 @@
         void LeaveRoom();
 
         void RequestMembershipCapability();
+
+        void Timeout(string username, int seconds);
+
+        void Ban(string username);
     }
 }
