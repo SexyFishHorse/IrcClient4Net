@@ -52,15 +52,15 @@
       <DependentUpon>IrcClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Clients\IrcClient.cs" />
+    <Compile Include="Clients\ITwitchIrcClient.cs">
+      <DependentUpon>TwitchIrcClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventHandlers\OnConnectedEventHandler.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\IrcClientModule.cs" />
-    <Compile Include="Clients\ITwitchIrcClient.cs">
-      <DependentUpon>TwitchIrcClient.cs</DependentUpon>
-    </Compile>
     <Compile Include="Clients\TwitchIrcClient.cs" />
     <Compile Include="EventHandlers\OnDisconnectedEventHandler.cs" />
     <Compile Include="EventHandlers\OnMessageSentEventHandler.cs" />
