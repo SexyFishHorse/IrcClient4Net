@@ -52,16 +52,23 @@
       <DependentUpon>IrcClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Clients\IrcClient.cs" />
+    <Compile Include="Clients\ITwitchIrcClient.cs">
+      <DependentUpon>TwitchIrcClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\IrcClientModule.cs" />
-    <Compile Include="Clients\ITwitchIrcClient.cs">
-      <DependentUpon>TwitchIrcClient.cs</DependentUpon>
-    </Compile>
     <Compile Include="Clients\TwitchIrcClient.cs" />
+    <Compile Include="EventHandling\EventArgs\OnConnectionFailedEventArgs.cs" />
+    <Compile Include="Clients\IrcClientWithEventHandling.cs" />
     <Compile Include="IrcCommandsFactory.cs" />
+    <Compile Include="EventHandling\EventArgs\OnConnectedEventArgs.cs" />
+    <Compile Include="EventHandling\EventArgs\OnDisconnectedEventArgs.cs" />
+    <Compile Include="EventHandling\EventArgs\OnIrcMessageReadEventArgs.cs" />
+    <Compile Include="EventHandling\EventArgs\OnMessageSentEventArgs.cs" />
+    <Compile Include="EventHandling\EventArgs\OnRawMessageReadEventArgs.cs" />
     <Compile Include="Models\IrcMessage.cs" />
     <Compile Include="Models\ResponseValidationException.cs" />
     <Compile Include="Parsers\IMessageParser.cs">

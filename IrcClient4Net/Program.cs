@@ -3,20 +3,20 @@
     using System;
     using System.IO;
     using System.Threading;
+    using Clients;
+    using Configuration;
+    using Models;
     using Ninject;
-    using SexyFishHorse.Irc.Client.Clients;
-    using SexyFishHorse.Irc.Client.Configuration;
-    using SexyFishHorse.Irc.Client.Models;
 
     public class Program
     {
-        private readonly ITwitchIrcClient client;
+        private readonly IIrcClient clientWith;
 
         private readonly IConfiguration configuration;
 
-        public Program(ITwitchIrcClient client, IConfiguration configuration)
+        public Program(IrcClientWithEventHandling clientWith, IConfiguration configuration)
         {
-            this.client = client;
+            this.clientWith = clientWith;
             this.configuration = configuration;
         }
 
@@ -35,13 +35,13 @@
         private void Run()
         {
             Running = true;
-            client.Connect();
+            clientWith.Connect(configuration.TwitchIrcServerName, configuration.TwitchIrcPortNumber, configuration.TwitchIrcNickname, configuration.TwitchIrcNickname, configuration.TwitchIrcNickname, configuration.TwitchIrcTmiToken);
 
             var thread = new Thread(ReadChatMessages);
             thread.Start();
 
-            client.RequestMembershipCapability();
-            client.JoinRoom();
+            clientWith.SendRawMessage(IrcCommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
+            clientWith.SendRawMessage(IrcCommandsFactory.Join(configuration.TwitchIrcNickname));
 
             while (!Ready)
             {
@@ -57,18 +57,23 @@
                 if (line == "exit")
                 {
                     Running = false;
-                    client.Dispose();
+                    clientWith.Dispose();
                 }
                 else
                 {
-                    client.SendChatMessage(line);
+                    clientWith.SendRawMessage(
+                        IrcCommandsFactory.PrivMsg(
+                            configuration.TwitchIrcNickname,
+                            string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
+                            configuration.TwitchIrcNickname,
+                            line));
                 }
             }
         }
 
         private void ReadChatMessages()
         {
-            var channelName = string.Format("#" + configuration.TwitchIrcNickname);
+            var channelName = string.Format("#{0}", configuration.TwitchIrcNickname);
 
             while (Running)
             {
@@ -76,7 +81,7 @@
 
                 try
                 {
-                    ircMessage = client.ReadIrcMessage();
+                    ircMessage = clientWith.ReadIrcMessage();
                 }
                 catch (IOException)
                 {

@@ -1,11 +1,11 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
     using System;
-    using SexyFishHorse.Irc.Client.Models;
+    using Models;
 
     public interface IIrcClient : IDisposable
     {
-        bool Connected { get; }
+        bool IsConnected { get; }
 
         void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password);
 
