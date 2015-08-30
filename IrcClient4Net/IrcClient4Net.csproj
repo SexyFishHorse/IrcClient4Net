@@ -55,17 +55,14 @@
     <Compile Include="Clients\ITwitchIrcClient.cs">
       <DependentUpon>TwitchIrcClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="EventHandling\EventHandlers\OnConnectedEventHandler.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration\IrcClientModule.cs" />
     <Compile Include="Clients\TwitchIrcClient.cs" />
-    <Compile Include="EventHandling\EventHandlers\OnDisconnectedEventHandler.cs" />
-    <Compile Include="EventHandling\EventHandlers\OnIrcMessageReadEventHandler.cs" />
-    <Compile Include="EventHandling\EventHandlers\OnMessageSentEventHandler.cs" />
-    <Compile Include="EventHandling\EventHandlers\OnRawMessageReadEventHandler.cs" />
+    <Compile Include="EventHandling\EventArgs\OnConnectionFailedEventArgs.cs" />
+    <Compile Include="Clients\IrcClientWithEventHandling.cs" />
     <Compile Include="IrcCommandsFactory.cs" />
     <Compile Include="EventHandling\EventArgs\OnConnectedEventArgs.cs" />
     <Compile Include="EventHandling\EventArgs\OnDisconnectedEventArgs.cs" />
@@ -90,7 +87,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

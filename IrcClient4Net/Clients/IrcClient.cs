@@ -3,10 +3,8 @@
     using System;
     using System.IO;
     using System.Net.Sockets;
-    using EventHandling.EventArgs;
     using Models;
     using Parsers;
-    using SexyFishHorse.Irc.Client.EventHandling.EventHandlers;
     using Validators;
 
     public class IrcClient : IIrcClient
@@ -29,22 +27,12 @@
             this.responseValidator = responseValidator;
         }
 
-        public event OnConnectedEventHandler OnConnected;
+        public bool IsConnected { get; private set; }
 
-        public event OnMessageSentEventHandler OnMessageSent;
-
-        public event OnDisconnectedEventHandler OnDisconnected;
-
-        public event OnRawMessageReadEventHandler OnRawMessageRead;
-
-        public event OnIrcMessageReadEventHandler OnIrcMessageRead;
-
-        public bool Connected { get; private set; }
-
-        public void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
+        public virtual void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
         {
             connecting = false;
-            Connected = false;
+            IsConnected = false;
 
             client = new TcpClient(serverName, portNumber);
             inputStream = new StreamReader(client.GetStream());
@@ -68,74 +56,49 @@
                 throw new ApplicationException("Unable to establish a connection to the server");
             }
 
-            if (OnConnected != null)
-            {
-                OnConnected(this, new OnConnectedEventArgs());
-            }
-
             connecting = false;
 
-            Connected = true;
+            IsConnected = true;
         }
 
-        public void SendRawMessage(string message)
+        public virtual void SendRawMessage(string message)
         {
-            if (!Connected)
+            if (!IsConnected)
             {
                 throw new InvalidOperationException("Client is not connected.");
             }
 
             outputStream.WriteLine(message);
             outputStream.Flush();
-
-            if (OnMessageSent != null)
-            {
-                OnMessageSent(this, new OnMessageSentEventArgs(message));
-            }
         }
 
-        public string ReadRawMessage()
+        public virtual string ReadRawMessage()
         {
-            if (!connecting && !Connected)
+            if (!connecting && !IsConnected)
             {
                 throw new InvalidOperationException("Client is not connected.");
             }
 
             var message = inputStream.ReadLine();
 
-            if (OnRawMessageRead != null)
-            {
-                OnRawMessageRead(this, new OnRawMessageReadEventArgs(message));
-            }
-
             return message;
         }
 
-        public IrcMessage ReadIrcMessage()
+        public virtual IrcMessage ReadIrcMessage()
         {
             var message = parser.ParseMessage(ReadRawMessage());
 
-            if (OnIrcMessageRead != null)
-            {
-                OnIrcMessageRead(this, new OnIrcMessageReadEventArgs(message));
-            }
-
             return message;
         }
 
-        public void Disconnect(string message = null)
+        public virtual void Disconnect(string message = null)
         {
             SendRawMessage(IrcCommandsFactory.Quit(message));
             inputStream.Dispose();
             outputStream.Dispose();
             client.Close();
 
-            Connected = false;
-
-            if (OnDisconnected != null)
-            {
-                OnDisconnected(this, new OnDisconnectedEventArgs());
-            }
+            IsConnected = false;
         }
 
         public void Dispose()

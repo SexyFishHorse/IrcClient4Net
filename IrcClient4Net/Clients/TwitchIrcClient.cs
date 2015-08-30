@@ -1,9 +1,9 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
     using System;
-    using SexyFishHorse.Irc.Client.Configuration;
-    using SexyFishHorse.Irc.Client.Parsers;
-    using SexyFishHorse.Irc.Client.Validators;
+    using Configuration;
+    using Parsers;
+    using Validators;
 
     public class TwitchIrcClient : IrcClient, ITwitchIrcClient
     {
