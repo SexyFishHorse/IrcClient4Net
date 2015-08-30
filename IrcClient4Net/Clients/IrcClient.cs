@@ -3,7 +3,9 @@
     using System;
     using System.IO;
     using System.Net.Sockets;
+    using SexyFishHorse.Irc.Client.EventHandlers;
     using SexyFishHorse.Irc.Client.Models;
+    using SexyFishHorse.Irc.Client.Models.EventArgs;
     using SexyFishHorse.Irc.Client.Parsers;
     using SexyFishHorse.Irc.Client.Validators;
 
@@ -26,6 +28,12 @@
             this.parser = parser;
             this.responseValidator = responseValidator;
         }
+
+        public event OnConnectedEventHandler OnConnected;
+
+        public event OnMessageSentEventHandler OnMessageSent;
+
+        public event OnDisconnectedEventHandler OnDisconnected;
 
         public bool Connected { get; private set; }
 
@@ -51,9 +59,14 @@
                 responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
                 responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
             }
-            catch (ResponseValidationException ex)
+            catch (ResponseValidationException)
             {
                 throw new ApplicationException("Unable to establish a connection to the server");
+            }
+
+            if (OnConnected != null)
+            {
+                OnConnected(this, new OnConnectedEventArgs());
             }
 
             connecting = false;
@@ -70,6 +83,11 @@
 
             outputStream.WriteLine(message);
             outputStream.Flush();
+
+            if (OnMessageSent != null)
+            {
+                OnMessageSent(this, new OnMessageSentEventArgs(message));
+            }
         }
 
         public string ReadRawMessage()
@@ -95,6 +113,11 @@
             client.Close();
 
             Connected = false;
+
+            if (OnDisconnected != null)
+            {
+                OnDisconnected(this, new OnDisconnectedEventArgs());
+            }
         }
 
         public void Dispose()

@@ -52,6 +52,7 @@
       <DependentUpon>IrcClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Clients\IrcClient.cs" />
+    <Compile Include="EventHandlers\OnConnectedEventHandler.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
@@ -61,7 +62,12 @@
       <DependentUpon>TwitchIrcClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Clients\TwitchIrcClient.cs" />
+    <Compile Include="EventHandlers\OnDisconnectedEventHandler.cs" />
+    <Compile Include="EventHandlers\OnMessageSentEventHandler.cs" />
     <Compile Include="IrcCommandsFactory.cs" />
+    <Compile Include="Models\EventArgs\OnConnectedEventArgs.cs" />
+    <Compile Include="Models\EventArgs\OnDisconnectedEventArgs.cs" />
+    <Compile Include="Models\EventArgs\OnMessageSentEventArgs.cs" />
     <Compile Include="Models\IrcMessage.cs" />
     <Compile Include="Models\ResponseValidationException.cs" />
     <Compile Include="Parsers\IMessageParser.cs">
@@ -80,6 +86,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
