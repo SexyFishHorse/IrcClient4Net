@@ -35,6 +35,10 @@
 
         public event OnDisconnectedEventHandler OnDisconnected;
 
+        public event OnRawMessageReadEventHandler OnRawMessageRead;
+
+        public event OnIrcMessageReadEventHandler OnIrcMessageRead;
+
         public bool Connected { get; private set; }
 
         public void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
@@ -97,12 +101,26 @@
                 throw new InvalidOperationException("Client is not connected.");
             }
 
-            return inputStream.ReadLine();
+            var message = inputStream.ReadLine();
+
+            if (OnRawMessageRead != null)
+            {
+                OnRawMessageRead(this, new OnRawMessageReadEventArgs(message));
+            }
+
+            return message;
         }
 
         public IrcMessage ReadIrcMessage()
         {
-            return parser.ParseMessage(ReadRawMessage());
+            var message = parser.ParseMessage(ReadRawMessage());
+
+            if (OnIrcMessageRead != null)
+            {
+                OnIrcMessageRead(this, new OnIrcMessageReadEventArgs(message));
+            }
+
+            return message;
         }
 
         public void Disconnect(string message = null)

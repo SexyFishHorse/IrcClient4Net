@@ -63,11 +63,15 @@
     <Compile Include="Configuration\IrcClientModule.cs" />
     <Compile Include="Clients\TwitchIrcClient.cs" />
     <Compile Include="EventHandlers\OnDisconnectedEventHandler.cs" />
+    <Compile Include="EventHandlers\OnIrcMessageReadEventHandler.cs" />
     <Compile Include="EventHandlers\OnMessageSentEventHandler.cs" />
+    <Compile Include="EventHandlers\OnRawMessageReadEventHandler.cs" />
     <Compile Include="IrcCommandsFactory.cs" />
     <Compile Include="Models\EventArgs\OnConnectedEventArgs.cs" />
     <Compile Include="Models\EventArgs\OnDisconnectedEventArgs.cs" />
+    <Compile Include="Models\EventArgs\OnIrcMessageReadEventArgs.cs" />
     <Compile Include="Models\EventArgs\OnMessageSentEventArgs.cs" />
+    <Compile Include="Models\EventArgs\OnRawMessageReadEventArgs.cs" />
     <Compile Include="Models\IrcMessage.cs" />
     <Compile Include="Models\ResponseValidationException.cs" />
     <Compile Include="Parsers\IMessageParser.cs">

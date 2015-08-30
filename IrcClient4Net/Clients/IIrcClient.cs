@@ -12,6 +12,10 @@
 
         event OnDisconnectedEventHandler OnDisconnected;
 
+        event OnRawMessageReadEventHandler OnRawMessageRead;
+
+        event OnIrcMessageReadEventHandler OnIrcMessageRead;
+
         bool Connected { get; }
 
         void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password);
