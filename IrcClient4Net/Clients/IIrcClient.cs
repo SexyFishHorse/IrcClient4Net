@@ -1,8 +1,8 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
     using System;
-    using SexyFishHorse.Irc.Client.EventHandlers;
-    using SexyFishHorse.Irc.Client.Models;
+    using Models;
+    using SexyFishHorse.Irc.Client.EventHandling.EventHandlers;
 
     public interface IIrcClient : IDisposable
     {

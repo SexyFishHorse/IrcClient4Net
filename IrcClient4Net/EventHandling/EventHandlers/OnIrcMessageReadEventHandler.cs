@@ -1,6 +1,6 @@
-namespace SexyFishHorse.Irc.Client.EventHandlers
+namespace SexyFishHorse.Irc.Client.EventHandling.EventHandlers
 {
-    using SexyFishHorse.Irc.Client.Models.EventArgs;
+    using EventArgs;
 
     public delegate void OnIrcMessageReadEventHandler(object sender, OnIrcMessageReadEventArgs args);
 }

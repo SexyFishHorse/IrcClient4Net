@@ -3,11 +3,11 @@
     using System;
     using System.IO;
     using System.Net.Sockets;
-    using SexyFishHorse.Irc.Client.EventHandlers;
-    using SexyFishHorse.Irc.Client.Models;
-    using SexyFishHorse.Irc.Client.Models.EventArgs;
-    using SexyFishHorse.Irc.Client.Parsers;
-    using SexyFishHorse.Irc.Client.Validators;
+    using EventHandling.EventArgs;
+    using Models;
+    using Parsers;
+    using SexyFishHorse.Irc.Client.EventHandling.EventHandlers;
+    using Validators;
 
     public class IrcClient : IIrcClient
     {

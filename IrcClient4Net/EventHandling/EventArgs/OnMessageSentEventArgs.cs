@@ -1,4 +1,4 @@
-﻿namespace SexyFishHorse.Irc.Client.Models.EventArgs
+﻿namespace SexyFishHorse.Irc.Client.EventHandling.EventArgs
 {
     using System;
 

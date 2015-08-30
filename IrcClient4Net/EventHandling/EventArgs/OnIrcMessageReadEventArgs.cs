@@ -1,6 +1,7 @@
-namespace SexyFishHorse.Irc.Client.Models.EventArgs
+namespace SexyFishHorse.Irc.Client.EventHandling.EventArgs
 {
     using System;
+    using SexyFishHorse.Irc.Client.Models;
 
     public class OnIrcMessageReadEventArgs : EventArgs
     {
