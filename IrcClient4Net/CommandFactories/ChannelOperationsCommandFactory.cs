@@ -1,7 +1,10 @@
 ﻿namespace SexyFishHorse.Irc.Client.CommandFactories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
+    using SexyFishHorse.Irc.Client.Models.Modes;
 
     public class ChannelOperationsCommandFactory
     {
@@ -41,6 +44,78 @@
                 "PART {0}{1}",
                 string.Join(",", channels),
                 string.IsNullOrWhiteSpace(message) ? null : string.Format(" :{0}", message));
+        }
+
+        public static string Mode(
+            string channel,
+            ModeOperation operation,
+            ChannelMode[] modes,
+            string modeParameters)
+        {
+            return
+                string.Format(
+                    "MODE {0} {1}{2} {3}",
+                    channel,
+                    operation == ModeOperation.Optain ? "+" : "-",
+                    GetChannelModesAsString(modes),
+                    modeParameters).Trim();
+        }
+
+        private static string GetChannelModesAsString(IEnumerable<ChannelMode> modes)
+        {
+            var modesAsString = new StringBuilder();
+
+            foreach (var mode in modes)
+            {
+                modesAsString.Append(GetChannelModeAsString(mode));
+            }
+
+            return modesAsString.ToString();
+        }
+
+        private static char GetChannelModeAsString(ChannelMode mode)
+        {
+            switch (mode)
+            {
+                case ChannelMode.Creator:
+                    return 'O';
+                case ChannelMode.Operator:
+                    return 'o';
+                case ChannelMode.VoicePrivilege:
+                    return 'v';
+                case ChannelMode.Anonymous:
+                    return 'a';
+                case ChannelMode.InviteOnly:
+                    return 'i';
+                case ChannelMode.Moderated:
+                    return 'm';
+                case ChannelMode.NoOutsideMessages:
+                    return 'n';
+                case ChannelMode.Quiet:
+                    return 'q';
+                case ChannelMode.Private:
+                    return 'p';
+                case ChannelMode.Secret:
+                    return 's';
+                case ChannelMode.Reop:
+                    return 'r';
+                case ChannelMode.OperatorOnlyTopic:
+                    return 't';
+                case ChannelMode.Key:
+                    return 'k';
+                case ChannelMode.Limit:
+                    return 'l';
+                case ChannelMode.BanMask:
+                    return 'b';
+                case ChannelMode.ExceptionMask:
+                    return 'e';
+                case ChannelMode.InvitationMask:
+                    return 'I';
+                default:
+                    throw new ArgumentException(
+                        string.Format("Mode to string mapping not defined for mode {0}", mode),
+                        "mode");
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using SexyFishHorse.Irc.Client.CommandFactories;
+    using SexyFishHorse.Irc.Client.Models.Modes;
     using Should;
     using Xunit;
 
@@ -28,6 +29,22 @@
             }
 
             ChannelOperationsCommandFactory.Join(list, leaveExisting).ShouldEqual(expected);
+        }
+
+        [Theory]
+        [InlineData("#channel", ModeOperation.Optain, new[] { ChannelMode.InviteOnly, ChannelMode.Moderated, ChannelMode.InvitationMask }, "*!*@*.fi", "MODE #channel +imI *!*@*.fi")]
+        [InlineData("#channel", ModeOperation.Optain, new[] { ChannelMode.Operator }, "Kilroy", "MODE #channel +o Kilroy")]
+        [InlineData("#channel", ModeOperation.Optain, new[] { ChannelMode.VoicePrivilege }, "Wiz", "MODE #channel +v Wiz")]
+        [InlineData("#channel", ModeOperation.Remove, new[] { ChannelMode.Secret }, null, "MODE #channel -s")]
+        [InlineData("#channel", ModeOperation.Optain, new[] { ChannelMode.Key }, "oulu", "MODE #channel +k oulu")]
+        [InlineData("#channel", ModeOperation.Remove, new[] { ChannelMode.Key }, "oulu", "MODE #channel -k oulu")]
+        public void Mode_MultipleModesWithParams_ShouldReturnProperlyFormatedCommandString(
+            string channel,
+            ModeOperation operation,
+            ChannelMode[] modes,
+            string modeParameters, string expected)
+        {
+            ChannelOperationsCommandFactory.Mode(channel, operation, modes, modeParameters).ShouldEqual(expected);
         }
     }
 }
