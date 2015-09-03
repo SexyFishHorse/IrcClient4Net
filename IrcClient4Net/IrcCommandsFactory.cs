@@ -41,5 +41,10 @@
         {
             return string.IsNullOrWhiteSpace(message) ? "QUIT" : string.Format("QUIT :{0}", message);
         }
+
+        public static string Oper(string username, string password)
+        {
+            return string.Format("OPER {0} {1}", username, password);
+        }
     }
 }
