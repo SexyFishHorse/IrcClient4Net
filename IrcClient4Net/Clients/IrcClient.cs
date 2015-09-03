@@ -46,9 +46,9 @@
 
             socket = connectionSocket;
 
-            connectionSocket.WriteLine(IrcConnectionRegistrationCommandFactory.Pass(password));
-            connectionSocket.WriteLine(IrcConnectionRegistrationCommandFactory.Nick(nickname));
-            connectionSocket.WriteLine(IrcConnectionRegistrationCommandFactory.User(username, realname));
+            connectionSocket.WriteLine(ConnectionRegistrationCommandFactory.Pass(password));
+            connectionSocket.WriteLine(ConnectionRegistrationCommandFactory.Nick(nickname));
+            connectionSocket.WriteLine(ConnectionRegistrationCommandFactory.User(username, realname));
             connectionSocket.Flush();
 
             connecting = true;
@@ -99,7 +99,7 @@
 
         public virtual void Disconnect(string message = null)
         {
-            SendRawMessage(IrcConnectionRegistrationCommandFactory.Quit(message));
+            SendRawMessage(ConnectionRegistrationCommandFactory.Quit(message));
             socket.Dispose();
 
             IsConnected = false;

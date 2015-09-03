@@ -7,6 +7,7 @@
     using Configuration;
     using Models;
     using Ninject;
+    using CommandFactories;
 
     public class Program
     {
@@ -40,8 +41,8 @@
             var thread = new Thread(ReadChatMessages);
             thread.Start();
 
-            clientWith.SendRawMessage(IrcCommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
-            clientWith.SendRawMessage(IrcCommandsFactory.Join(configuration.TwitchIrcNickname));
+            clientWith.SendRawMessage(CommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
+            clientWith.SendRawMessage(CommandsFactory.Join(configuration.TwitchIrcNickname));
 
             while (!Ready)
             {
@@ -62,7 +63,7 @@
                 else
                 {
                     clientWith.SendRawMessage(
-                        IrcCommandsFactory.PrivMsg(
+                        CommandsFactory.PrivMsg(
                             configuration.TwitchIrcNickname,
                             string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
                             configuration.TwitchIrcNickname,

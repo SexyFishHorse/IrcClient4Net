@@ -1,6 +1,6 @@
-﻿namespace SexyFishHorse.Irc.Client
+﻿namespace SexyFishHorse.Irc.Client.CommandFactories
 {
-    public static class IrcCommandsFactory
+    public static class CommandsFactory
     {
         public static string Join(string channel)
         {

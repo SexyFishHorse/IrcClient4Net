@@ -3,7 +3,7 @@
     using System;
     using Models.UserMode;
 
-    public static class IrcConnectionRegistrationCommandFactory
+    public static class ConnectionRegistrationCommandFactory
     {
         public static string Pass(string password)
         {

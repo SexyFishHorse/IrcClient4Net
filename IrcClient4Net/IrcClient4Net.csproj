@@ -55,7 +55,7 @@
     <Compile Include="Clients\ITwitchIrcClient.cs">
       <DependentUpon>TwitchIrcClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommandFactories\IrcConnectionRegistrationCommandFactory.cs" />
+    <Compile Include="CommandFactories\ConnectionRegistrationCommandFactory.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
@@ -64,7 +64,7 @@
     <Compile Include="Clients\TwitchIrcClient.cs" />
     <Compile Include="EventHandling\EventArgs\OnConnectionFailedEventArgs.cs" />
     <Compile Include="Clients\IrcClientWithEventHandling.cs" />
-    <Compile Include="IrcCommandsFactory.cs" />
+    <Compile Include="CommandFactories\CommandsFactory.cs" />
     <Compile Include="EventHandling\EventArgs\OnConnectedEventArgs.cs" />
     <Compile Include="EventHandling\EventArgs\OnDisconnectedEventArgs.cs" />
     <Compile Include="EventHandling\EventArgs\OnIrcMessageReadEventArgs.cs" />

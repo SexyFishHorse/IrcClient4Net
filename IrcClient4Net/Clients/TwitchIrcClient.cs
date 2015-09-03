@@ -3,6 +3,7 @@
     using System;
     using Configuration;
     using Parsers;
+    using CommandFactories;
     using Validators;
 
     public class TwitchIrcClient : IrcClient, ITwitchIrcClient
@@ -28,7 +29,7 @@
 
         public void JoinRoom()
         {
-            SendIrcMessage(IrcCommandsFactory.Join(configuration.TwitchIrcNickname));
+            SendIrcMessage(CommandsFactory.Join(configuration.TwitchIrcNickname));
         }
 
         public void SendIrcMessage(string message)
@@ -40,7 +41,7 @@
         public void SendChatMessage(string message)
         {
             SendIrcMessage(
-                IrcCommandsFactory.PrivMsg(
+                CommandsFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
                     configuration.TwitchIrcNickname,
@@ -49,18 +50,18 @@
 
         public void LeaveRoom()
         {
-            SendIrcMessage(IrcCommandsFactory.Part(configuration.TwitchIrcNickname));
+            SendIrcMessage(CommandsFactory.Part(configuration.TwitchIrcNickname));
         }
 
         public void RequestMembershipCapability()
         {
-            SendIrcMessage(IrcCommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
+            SendIrcMessage(CommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
         }
 
         public void Timeout(string username, int seconds)
         {
             SendRawMessage(
-                IrcCommandsFactory.PrivMsg(
+                CommandsFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
                     configuration.TwitchIrcNickname,
@@ -70,7 +71,7 @@
         public void Ban(string username)
         {
             SendRawMessage(
-                IrcCommandsFactory.PrivMsg(
+                CommandsFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
                     configuration.TwitchIrcNickname,
