@@ -29,5 +29,18 @@
                     string.Join(",", keys),
                     leaveExistingChannels ? " 0" : string.Empty).Trim();
         }
+
+        public static string Part(string channel, string message = null)
+        {
+            return Part(new[] { channel }, message);
+        }
+
+        public static string Part(string[] channels, string message = null)
+        {
+            return string.Format(
+                "PART {0}{1}",
+                string.Join(",", channels),
+                string.IsNullOrWhiteSpace(message) ? null : string.Format(" :{0}", message));
+        }
     }
 }

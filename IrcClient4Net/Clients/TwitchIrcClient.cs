@@ -51,7 +51,7 @@
 
         public void LeaveRoom()
         {
-            SendIrcMessage(CommandsFactory.Part(configuration.TwitchIrcNickname));
+            SendIrcMessage(ChannelOperationsCommandFactory.Part(string.Format("#{0}", configuration.TwitchIrcNickname)));
         }
 
         public void RequestMembershipCapability()
