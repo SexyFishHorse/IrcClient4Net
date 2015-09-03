@@ -1,7 +1,7 @@
 ﻿namespace SexyFishHorse.Irc.Client.CommandFactories
 {
     using System;
-    using Models.UserMode;
+    using Models.Modes;
 
     public static class ConnectionRegistrationCommandFactory
     {
@@ -25,14 +25,14 @@
             return string.Format("OPER {0} {1}", username, password);
         }
 
-        public static string Mode(string nickname, UserModeOperation operation, UserMode userMode)
+        public static string Mode(string nickname, ModeOperation operation, UserMode userMode)
         {
             var userModeAsString = UserModeToString(userMode);
 
             return string.Format(
                 "MODE {0} {1}{2}",
                 nickname,
-                operation == UserModeOperation.Optain ? "+" : "-",
+                operation == ModeOperation.Optain ? "+" : "-",
                 userModeAsString);
         }
 

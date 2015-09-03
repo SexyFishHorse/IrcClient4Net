@@ -72,11 +72,13 @@
     <Compile Include="EventHandling\EventArgs\OnMessageSentEventArgs.cs" />
     <Compile Include="EventHandling\EventArgs\OnRawMessageReadEventArgs.cs" />
     <Compile Include="Models\IrcMessage.cs" />
-    <Compile Include="Models\ISocket.cs" />
+    <Compile Include="Models\ISocket.cs">
+      <DependentUpon>Socket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ResponseValidationException.cs" />
     <Compile Include="Models\Socket.cs" />
-    <Compile Include="Models\UserMode\UserMode.cs" />
-    <Compile Include="Models\UserMode\UserModeOperation.cs" />
+    <Compile Include="Models\Modes\UserMode.cs" />
+    <Compile Include="Models\Modes\ModeOperation.cs" />
     <Compile Include="Parsers\IMessageParser.cs">
       <DependentUpon>MessageParser.cs</DependentUpon>
     </Compile>

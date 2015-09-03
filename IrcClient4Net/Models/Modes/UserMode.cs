@@ -1,4 +1,4 @@
-﻿namespace SexyFishHorse.Irc.Client.Models.UserMode
+﻿namespace SexyFishHorse.Irc.Client.Models.Modes
 {
     public enum UserMode
     {
