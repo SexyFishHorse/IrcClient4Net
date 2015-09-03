@@ -61,6 +61,17 @@
                 userModeAsString);
         }
 
+        public static string ServerMessage(
+            string nickname,
+            string reserved1,
+            string distribution,
+            string type,
+            string reserved2,
+            string info)
+        {
+            throw new NotImplementedException("I have no idea how to implement this method. https://tools.ietf.org/html/rfc2812#section-3.1.6 is not very clear!");
+        }
+
         public static string UserModeToString(UserMode userMode)
         {
             switch (userMode)
