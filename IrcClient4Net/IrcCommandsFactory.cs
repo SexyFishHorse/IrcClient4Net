@@ -72,6 +72,11 @@
             throw new NotImplementedException("I have no idea how to implement this method. https://tools.ietf.org/html/rfc2812#section-3.1.6 is not very clear!");
         }
 
+        public static string Squit(string server, string comment)
+        {
+            return string.Format("SQUIT {0} :{1}", server, comment);
+        }
+
         public static string UserModeToString(UserMode userMode)
         {
             switch (userMode)
