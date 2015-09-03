@@ -55,6 +55,7 @@
     <Compile Include="Clients\ITwitchIrcClient.cs">
       <DependentUpon>TwitchIrcClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandFactories\ChannelOperationsCommandFactory.cs" />
     <Compile Include="CommandFactories\ConnectionRegistrationCommandFactory.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">

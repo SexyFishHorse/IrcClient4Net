@@ -2,10 +2,6 @@
 {
     public static class CommandsFactory
     {
-        public static string Join(string channel)
-        {
-            return string.Format("JOIN #{0}", channel);
-        }
 
         public static string PrivMsg(string username, string host, string channel, string message)
         {

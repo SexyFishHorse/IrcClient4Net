@@ -29,7 +29,8 @@
 
         public void JoinRoom()
         {
-            SendIrcMessage(CommandsFactory.Join(configuration.TwitchIrcNickname));
+            SendIrcMessage(
+                ChannelOperationsCommandFactory.Join(string.Format("#{0}", configuration.TwitchIrcNickname), null, false));
         }
 
         public void SendIrcMessage(string message)

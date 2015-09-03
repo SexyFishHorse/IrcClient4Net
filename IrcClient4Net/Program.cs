@@ -42,7 +42,7 @@
             thread.Start();
 
             clientWith.SendRawMessage(CommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
-            clientWith.SendRawMessage(CommandsFactory.Join(configuration.TwitchIrcNickname));
+            clientWith.SendRawMessage(ChannelOperationsCommandFactory.Join(string.Format("#{0}", configuration.TwitchIrcNickname), null, false));
 
             while (!Ready)
             {
