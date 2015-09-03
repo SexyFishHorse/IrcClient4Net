@@ -73,6 +73,8 @@
     <Compile Include="Models\ISocket.cs" />
     <Compile Include="Models\ResponseValidationException.cs" />
     <Compile Include="Models\Socket.cs" />
+    <Compile Include="Models\UserMode\UserMode.cs" />
+    <Compile Include="Models\UserMode\UserModeOperation.cs" />
     <Compile Include="Parsers\IMessageParser.cs">
       <DependentUpon>MessageParser.cs</DependentUpon>
     </Compile>

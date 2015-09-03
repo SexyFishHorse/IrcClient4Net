@@ -1,5 +1,8 @@
 ﻿namespace SexyFishHorse.Irc.Client
 {
+    using System;
+    using SexyFishHorse.Irc.Client.Models.UserMode;
+
     public static class IrcCommandsFactory
     {
         public static string Pass(string password)
@@ -45,6 +48,42 @@
         public static string Oper(string username, string password)
         {
             return string.Format("OPER {0} {1}", username, password);
+        }
+
+        public static string Mode(string nickname, UserModeOperation operation, UserMode userMode)
+        {
+            var userModeAsString = UserModeToString(userMode);
+
+            return string.Format(
+                "MODE {0} {1}{2}",
+                nickname,
+                operation == UserModeOperation.Optain ? "+" : "-",
+                userModeAsString);
+        }
+
+        public static string UserModeToString(UserMode userMode)
+        {
+            switch (userMode)
+            {
+                case UserMode.Away:
+                    return "a";
+                case UserMode.Invisible:
+                    return "i";
+                case UserMode.ReceiveWallops:
+                    return "w";
+                case UserMode.RestrictedConnection:
+                    return "r";
+                case UserMode.Operator:
+                    return "o";
+                case UserMode.LocalOperator:
+                    return "O";
+                case UserMode.ReceiveServerNotices:
+                    return "s";
+                default:
+                    throw new ArgumentException(
+                        string.Format("No mapping defined for user mode {0}", userMode),
+                        "userMode");
+            }
         }
     }
 }
