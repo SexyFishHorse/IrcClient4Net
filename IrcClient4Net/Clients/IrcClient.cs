@@ -26,15 +26,20 @@
 
         public virtual void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
         {
+            Connect(new Models.Socket(new TcpClient(serverName, portNumber)), username, nickname, realname, password);
+        }
+
+        public void Connect(ISocket connectionSocket, string username, string nickname, string realname, string password)
+        {
             connecting = false;
             IsConnected = false;
 
-            socket = new Models.Socket(new TcpClient(serverName, portNumber));
+            socket = connectionSocket;
 
-            socket.WriteLine(IrcCommandsFactory.Pass(password));
-            socket.WriteLine(IrcCommandsFactory.Nick(nickname));
-            socket.WriteLine(IrcCommandsFactory.User(username, realname));
-            socket.Flush();
+            connectionSocket.WriteLine(IrcCommandsFactory.Pass(password));
+            connectionSocket.WriteLine(IrcCommandsFactory.Nick(nickname));
+            connectionSocket.WriteLine(IrcCommandsFactory.User(username, realname));
+            connectionSocket.Flush();
 
             connecting = true;
             try
@@ -50,7 +55,6 @@
             }
 
             connecting = false;
-
             IsConnected = true;
         }
 
