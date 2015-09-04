@@ -22,6 +22,15 @@
             this.responseValidator = responseValidator;
         }
 
+        public IrcClient(IMessageParser parser, IResponseValidator responseValidator, ISocket socket, bool isConnected, bool connecting)
+        {
+            this.parser = parser;
+            this.responseValidator = responseValidator;
+            this.socket = socket;
+            IsConnected = isConnected;
+            this.connecting = connecting;
+        }
+
         public bool IsConnected { get; private set; }
 
         public virtual void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
