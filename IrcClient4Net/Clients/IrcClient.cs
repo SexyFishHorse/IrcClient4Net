@@ -1,7 +1,6 @@
 ﻿namespace SexyFishHorse.Irc.Client.Clients
 {
     using System;
-    using System.IO;
     using System.Net.Sockets;
     using Models;
     using Parsers;
@@ -13,11 +12,7 @@
 
         private readonly IResponseValidator responseValidator;
 
-        private TcpClient client;
-
-        private StreamReader inputStream;
-
-        private StreamWriter outputStream;
+        private ISocket socket;
 
         private bool connecting;
 
@@ -34,14 +29,12 @@
             connecting = false;
             IsConnected = false;
 
-            client = new TcpClient(serverName, portNumber);
-            inputStream = new StreamReader(client.GetStream());
-            outputStream = new StreamWriter(client.GetStream());
+            socket = new Models.Socket(new TcpClient(serverName, portNumber));
 
-            outputStream.WriteLine(IrcCommandsFactory.Pass(password));
-            outputStream.WriteLine(IrcCommandsFactory.Nick(nickname));
-            outputStream.WriteLine(IrcCommandsFactory.User(username, realname));
-            outputStream.Flush();
+            socket.WriteLine(IrcCommandsFactory.Pass(password));
+            socket.WriteLine(IrcCommandsFactory.Nick(nickname));
+            socket.WriteLine(IrcCommandsFactory.User(username, realname));
+            socket.Flush();
 
             connecting = true;
             try
@@ -68,8 +61,7 @@
                 throw new InvalidOperationException("Client is not connected.");
             }
 
-            outputStream.WriteLine(message);
-            outputStream.Flush();
+            socket.WriteLineAndFlush(message);
         }
 
         public virtual string ReadRawMessage()
@@ -79,7 +71,7 @@
                 throw new InvalidOperationException("Client is not connected.");
             }
 
-            var message = inputStream.ReadLine();
+            var message = socket.ReadLine();
 
             return message;
         }
@@ -94,9 +86,7 @@
         public virtual void Disconnect(string message = null)
         {
             SendRawMessage(IrcCommandsFactory.Quit(message));
-            inputStream.Dispose();
-            outputStream.Dispose();
-            client.Close();
+            socket.Dispose();
 
             IsConnected = false;
         }
