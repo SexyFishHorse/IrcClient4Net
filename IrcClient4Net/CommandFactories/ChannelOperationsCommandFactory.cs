@@ -68,6 +68,18 @@
             return string.Format("TOPIC {0}{1}", channel, topic);
         }
 
+        public static string Names(string[] channels = null, string target = null)
+        {
+            if (channels == null || channels.Length < 1)
+            {
+                return "NAMES";
+            }
+
+            target = target == null ? string.Empty : string.Format(" :{0}", target);
+
+            return string.Format("NAMES {0}{1}", string.Join(",", channels), target);
+        }
+
         private static string GetChannelModesAsString(IEnumerable<ChannelMode> modes)
         {
             var modesAsString = new StringBuilder();
