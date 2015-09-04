@@ -2,6 +2,7 @@
 {
     using System;
     using Models;
+    using SexyFishHorse.Irc.Client.EventHandling.EventArgs;
 
     public interface IIrcClient : IDisposable
     {
@@ -16,5 +17,17 @@
         IrcMessage ReadIrcMessage();
 
         void Disconnect(string message = null);
+
+        event Action<OnConnectedEventArgs> Connected;
+
+        event Action<OnConnectionFailedEventArgs> ConnectionFailed;
+
+        event Action<OnMessageSentEventArgs> MessageSent;
+
+        event Action<OnDisconnectedEventArgs> Disconnected;
+
+        event Action<OnRawMessageReadEventArgs> RawMessageRead;
+
+        event Action<OnIrcMessageReadEventArgs> IrcMessageRead;
     }
 }

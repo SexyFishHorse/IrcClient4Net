@@ -4,6 +4,7 @@
     using System.Net.Sockets;
     using Models;
     using Parsers;
+    using EventHandling.EventArgs;
     using Validators;
 
     public class IrcClient : IIrcClient
@@ -31,6 +32,18 @@
             this.connecting = connecting;
         }
 
+        public event Action<OnConnectedEventArgs> Connected;
+
+        public event Action<OnConnectionFailedEventArgs> ConnectionFailed;
+
+        public event Action<OnMessageSentEventArgs> MessageSent;
+
+        public event Action<OnDisconnectedEventArgs> Disconnected;
+
+        public event Action<OnRawMessageReadEventArgs> RawMessageRead;
+
+        public event Action<OnIrcMessageReadEventArgs> IrcMessageRead;
+
         public bool IsConnected { get; private set; }
 
         public virtual void Connect(string serverName, int portNumber, string username, string nickname, string realname, string password)
@@ -57,9 +70,19 @@
                 responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.YourHost);
                 responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.Created);
                 responseValidator.ValidateCommand(ReadIrcMessage(), Rfc2812CommandResponse.MyInfo);
+
+                if (Connected != null)
+                {
+                    Connected(new OnConnectedEventArgs());
+                }
             }
             catch (ResponseValidationException)
             {
+                if (ConnectionFailed != null)
+                {
+                    ConnectionFailed(new OnConnectionFailedEventArgs());
+                }
+
                 throw new ApplicationException("Unable to establish a connection to the server");
             }
 
@@ -75,6 +98,11 @@
             }
 
             socket.WriteLineAndFlush(message);
+
+            if (MessageSent != null)
+            {
+                MessageSent(new OnMessageSentEventArgs(message));
+            }
         }
 
         public virtual string ReadRawMessage()
@@ -86,12 +114,22 @@
 
             var message = socket.ReadLine();
 
+            if (RawMessageRead != null)
+            {
+                RawMessageRead(new OnRawMessageReadEventArgs(message));
+            }
+
             return message;
         }
 
         public virtual IrcMessage ReadIrcMessage()
         {
             var message = parser.ParseMessage(ReadRawMessage());
+
+            if (IrcMessageRead != null)
+            {
+                IrcMessageRead(new OnIrcMessageReadEventArgs(message));
+            }
 
             return message;
         }
@@ -102,6 +140,11 @@
             socket.Dispose();
 
             IsConnected = false;
+
+            if (Disconnected != null)
+            {
+                Disconnected(new OnDisconnectedEventArgs());
+            }
         }
 
         public void Dispose()

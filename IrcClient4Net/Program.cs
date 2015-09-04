@@ -14,7 +14,7 @@
 
         private readonly IConfiguration configuration;
 
-        public Program(IrcClientWithEventHandling clientWith, IConfiguration configuration)
+        public Program(IIrcClient clientWith, IConfiguration configuration)
         {
             this.clientWith = clientWith;
             this.configuration = configuration;
