@@ -92,6 +92,11 @@
             return string.Format("LIST {0}{1}", string.Join(",", channels), target);
         }
 
+        public static string Invite(string nickname, string channel)
+        {
+            return string.Format("{0} {1}", nickname, channel);
+        }
+
         private static string GetChannelModesAsString(IEnumerable<ChannelMode> modes)
         {
             var modesAsString = new StringBuilder();
