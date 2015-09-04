@@ -97,6 +97,13 @@
             return string.Format("{0} {1}", nickname, channel);
         }
 
+        public static string Kick(string[] channels, string[] users, string comment = null)
+        {
+            comment = comment == null ? string.Empty : string.Format(" :{0}", comment);
+
+            return string.Format("KICK {0} {1}{2}", string.Join(",", channels), string.Join(",", users), comment);
+        }
+
         private static string GetChannelModesAsString(IEnumerable<ChannelMode> modes)
         {
             var modesAsString = new StringBuilder();
