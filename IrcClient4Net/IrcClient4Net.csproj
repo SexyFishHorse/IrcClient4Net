@@ -62,7 +62,6 @@
     <Compile Include="Configuration\IrcClientModule.cs" />
     <Compile Include="Clients\TwitchIrcClient.cs" />
     <Compile Include="EventHandling\EventArgs\OnConnectionFailedEventArgs.cs" />
-    <Compile Include="Clients\IrcClientWithEventHandling.cs" />
     <Compile Include="IrcCommandsFactory.cs" />
     <Compile Include="EventHandling\EventArgs\OnConnectedEventArgs.cs" />
     <Compile Include="EventHandling\EventArgs\OnDisconnectedEventArgs.cs" />
