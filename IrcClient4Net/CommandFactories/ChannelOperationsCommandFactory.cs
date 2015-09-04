@@ -80,6 +80,18 @@
             return string.Format("NAMES {0}{1}", string.Join(",", channels), target);
         }
 
+        public static string List(string[] channels = null, string target = null)
+        {
+            if (channels == null || channels.Length < 1)
+            {
+                return "LIST";
+            }
+
+            target = target == null ? string.Empty : string.Format(" :{0}", target);
+
+            return string.Format("LIST {0}{1}", string.Join(",", channels), target);
+        }
+
         private static string GetChannelModesAsString(IEnumerable<ChannelMode> modes)
         {
             var modesAsString = new StringBuilder();
