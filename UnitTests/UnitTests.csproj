@@ -70,6 +70,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CommandFactories\ChannelOperationsCommandFactoryTest.cs" />
     <Compile Include="Parsers\MessageParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\ResponseValidatorTest.cs" />

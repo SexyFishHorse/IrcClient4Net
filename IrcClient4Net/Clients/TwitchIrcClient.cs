@@ -3,6 +3,7 @@
     using System;
     using Configuration;
     using Parsers;
+    using CommandFactories;
     using Validators;
 
     public class TwitchIrcClient : IrcClient, ITwitchIrcClient
@@ -28,7 +29,8 @@
 
         public void JoinRoom()
         {
-            SendIrcMessage(IrcCommandsFactory.Join(configuration.TwitchIrcNickname));
+            SendIrcMessage(
+                ChannelOperationsCommandFactory.Join(string.Format("#{0}", configuration.TwitchIrcNickname), null, false));
         }
 
         public void SendIrcMessage(string message)
@@ -40,40 +42,40 @@
         public void SendChatMessage(string message)
         {
             SendIrcMessage(
-                IrcCommandsFactory.PrivMsg(
+                MessagingCommandFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                    configuration.TwitchIrcNickname,
+                    string.Format("#{0}", configuration.TwitchIrcNickname),
                     message));
         }
 
         public void LeaveRoom()
         {
-            SendIrcMessage(IrcCommandsFactory.Part(configuration.TwitchIrcNickname));
+            SendIrcMessage(ChannelOperationsCommandFactory.Part(string.Format("#{0}", configuration.TwitchIrcNickname)));
         }
 
         public void RequestMembershipCapability()
         {
-            SendIrcMessage(IrcCommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
+            SendIrcMessage(CommandsFactory.CapReq(configuration.TwitchIrcMembershipCapability));
         }
 
         public void Timeout(string username, int seconds)
         {
             SendRawMessage(
-                IrcCommandsFactory.PrivMsg(
+                MessagingCommandFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                    configuration.TwitchIrcNickname,
+                    string.Format("#{0}", configuration.TwitchIrcNickname),
                     string.Format(".timeout {0} {1}", username, seconds)));
         }
 
         public void Ban(string username)
         {
             SendRawMessage(
-                IrcCommandsFactory.PrivMsg(
+                MessagingCommandFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                    configuration.TwitchIrcNickname,
+                    string.Format("#{0}", configuration.TwitchIrcNickname),
                     string.Format(".timeout {0}", username)));
         }
     }

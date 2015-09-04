@@ -4,6 +4,7 @@
     using System.Net.Sockets;
     using Models;
     using Parsers;
+    using CommandFactories;
     using Validators;
 
     public class IrcClient : IIrcClient
@@ -45,9 +46,9 @@
 
             socket = connectionSocket;
 
-            connectionSocket.WriteLine(IrcCommandsFactory.Pass(password));
-            connectionSocket.WriteLine(IrcCommandsFactory.Nick(nickname));
-            connectionSocket.WriteLine(IrcCommandsFactory.User(username, realname));
+            connectionSocket.WriteLine(ConnectionRegistrationCommandFactory.Pass(password));
+            connectionSocket.WriteLine(ConnectionRegistrationCommandFactory.Nick(nickname));
+            connectionSocket.WriteLine(ConnectionRegistrationCommandFactory.User(username, realname));
             connectionSocket.Flush();
 
             connecting = true;
@@ -98,7 +99,7 @@
 
         public virtual void Disconnect(string message = null)
         {
-            SendRawMessage(IrcCommandsFactory.Quit(message));
+            SendRawMessage(ConnectionRegistrationCommandFactory.Quit(message));
             socket.Dispose();
 
             IsConnected = false;
