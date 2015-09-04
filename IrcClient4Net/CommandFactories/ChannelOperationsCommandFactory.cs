@@ -61,6 +61,13 @@
                     modeParameters).Trim();
         }
 
+        public static string Topic(string channel, string topic = null)
+        {
+            topic = topic == null ? string.Empty : string.Format(" :{0}", topic);
+
+            return string.Format("TOPIC {0}{1}", channel, topic);
+        }
+
         private static string GetChannelModesAsString(IEnumerable<ChannelMode> modes)
         {
             var modesAsString = new StringBuilder();
