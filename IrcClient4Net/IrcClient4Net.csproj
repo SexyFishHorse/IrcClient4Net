@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="CommandFactories\ChannelOperationsCommandFactory.cs" />
     <Compile Include="CommandFactories\ConnectionRegistrationCommandFactory.cs" />
+    <Compile Include="CommandFactories\MessagingCommandFactory.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs">
       <DependentUpon>Configuration.cs</DependentUpon>

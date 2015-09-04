@@ -42,10 +42,10 @@
         public void SendChatMessage(string message)
         {
             SendIrcMessage(
-                CommandsFactory.PrivMsg(
+                MessagingCommandFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                    configuration.TwitchIrcNickname,
+                    string.Format("#{0}", configuration.TwitchIrcNickname),
                     message));
         }
 
@@ -62,20 +62,20 @@
         public void Timeout(string username, int seconds)
         {
             SendRawMessage(
-                CommandsFactory.PrivMsg(
+                MessagingCommandFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                    configuration.TwitchIrcNickname,
+                    string.Format("#{0}", configuration.TwitchIrcNickname),
                     string.Format(".timeout {0} {1}", username, seconds)));
         }
 
         public void Ban(string username)
         {
             SendRawMessage(
-                CommandsFactory.PrivMsg(
+                MessagingCommandFactory.PrivMsg(
                     configuration.TwitchIrcNickname,
                     string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                    configuration.TwitchIrcNickname,
+                    string.Format("#{0}", configuration.TwitchIrcNickname),
                     string.Format(".timeout {0}", username)));
         }
     }

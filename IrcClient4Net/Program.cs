@@ -63,10 +63,10 @@
                 else
                 {
                     clientWith.SendRawMessage(
-                        CommandsFactory.PrivMsg(
+                        MessagingCommandFactory.PrivMsg(
                             configuration.TwitchIrcNickname,
                             string.Format("{0}@tmi.twitch.tv", configuration.TwitchIrcNickname),
-                            configuration.TwitchIrcNickname,
+                            string.Format("#{0}", configuration.TwitchIrcNickname),
                             line));
                 }
             }
