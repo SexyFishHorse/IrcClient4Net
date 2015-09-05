@@ -9,12 +9,8 @@ This library is specifically built for use with the Twitch live stream chats in 
 
 I will do my best to keep twitch logic in its respective classes so you don't have to mess with that if you don't need it. I might even move it into its own repository eventually depending on how large that functionality or the basic framework evolves.
 
-# THIS PROJECT IS IN A VERY EARLY STAGE OF DEVELOPMENT
-The base ```IrcClient``` is very feature lacking at the moment. It does however already provide basic functionality to connect and interact with an IRC server and it can return the messages in either the raw format or in a parsed format.
-
-A few commands (```PASS```, ```USER```, ```NICK```, ```JOIN```, ```PART```, ```PRIVMSG``` and ```CAP REQ```) have been added to the ```IrcCommandFactory``` class for ease of use, but you may have to create your own raw messages for now until more commands are supported.
-
-The ```TwitchIrcClient``` is built as a wrapper around the ```IrcClient``` and provides an easier way to connect directly to the twitch irc for a specific channel. Enter your twitch username and your [tmi token](https://twitchapps.com/tmi/) in the App.config file and call ```.Connect``` on the ```TwitchIrcClient```.
+# In Development
+This project is currently in development but it should include enough functionality for other to use at this time. Please submit an issue or pull request if you have any issues.
 
 # For contributors
 Please maintain the same structure and coding style as in the existing code for improved readability.
