@@ -5,9 +5,9 @@ The idea behind this repository is to provide a stupid and simple library that a
 
 You get all the methods you need to connect and interact with the server along with methods that allows you to receive messages in a parsed format. You will have to do the rest yourself.
 
-This library is specifically built for use with the Twitch and Hitbox live stream chats in mind so some features may be missing for now. Create an issue or submit a pull request and I'll look into it as soon as possible :)
+This library is specifically built for use with the Twitch live stream chats in mind so some features may be missing for now. Create an issue or submit a pull request and I'll look into it as soon as possible :)
 
-I will do my best to keep twitch and hitbox logic in their respective classes so you don't have to mess with that if you don't need it. I might even move it into its own repository eventually depending on how large that functionality or the basic framework evolves.
+I will do my best to keep twitch logic in its respective classes so you don't have to mess with that if you don't need it. I might even move it into its own repository eventually depending on how large that functionality or the basic framework evolves.
 
 # THIS PROJECT IS IN A VERY EARLY STAGE OF DEVELOPMENT
 The base ```IrcClient``` is very feature lacking at the moment. It does however already provide basic functionality to connect and interact with an IRC server and it can return the messages in either the raw format or in a parsed format.
